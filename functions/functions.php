@@ -1,5 +1,5 @@
 <?php
-include 'dbconn.php';
+include 'config/dbconn.php';
 
 function ProfileInfo(){
 global $conn;
@@ -14,10 +14,10 @@ echo '
 <fieldset class = "box">
 <div class = "buttons is-small">
 	
-	<a class = "button is-success is-small "href ="landing.php">View Lease</a>
-	<a class = "button is-success is-small " href ="landing.php">Renew Lease</a>
-	<a class = "button is-success is-small " href ="landing.php">Update Personal Information</a>
-	<a class = "button is-danger is-small "href ="landing.php">Close File</a>
+	<a class = "button is-success is-rounded "href ="landing.php">View Lease</a>
+	<a class = "button is-success is-rounded" href ="landing.php">Renew Lease</a>
+	<a class = "button is-success is-rounded " href ="landing.php">Update Personal Information</a>
+	<a class = "button is-danger  is-rounded "href ="landing.php">Close File</a>
 </div>
 <legend class="label has-text-justified">Personal Data</legend>
 
@@ -96,7 +96,7 @@ $sql1 = mysqli_query($conn,$sql1);
 while ($row1 = mysqli_fetch_assoc($sql1))
 echo '
 
-<tr><td>'.$row1["Notes"] .'</td><td>'.$row1["DateCreated"]. '</td><td>'.$row1["userid"]. '</td><td>'.$row1["lastupdate"] .'</td></tr>
+<tr><td>'.$row1["Notes"] .'</td><td>'.$row1["DateCreated"]. '</td><td>'.$row1["username"]. '</td><td>'.$row1["lastupdate"] .'</td></tr>
 </fieldset>
 </div>';
 

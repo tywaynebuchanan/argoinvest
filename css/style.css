@@ -1,0 +1,65 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.space {
+
+	padding: 20px;
+}
+
+.hide-info{
+
+	display: none;
+}
+
+.show-info{
+
+	display: inline-block;
+}
+
+.small-padding{padding-top:0}
+
+.space-cell{
+padding: 20px;
+
+}
+
+.space{
+	
+	padding: 10px;
+}
+
+.show-content{
+
+	display:inline-flex;
+}
+
+.hide-content{
+	display:none;
+}
+
+.no-space{
+	padding: 0px;
+	margin: 0px;
+}
+
+.no-space{
+
+	margin: 0;
+	padding-right:0px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+
+}
+
+

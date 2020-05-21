@@ -1,4 +1,7 @@
+<?php ob_start()?>
+
 <?php
+$timezone = date_default_timezone_set("America/Jamaica");
 $conn_error = "Could not connect";
 $db_host = 'localhost';
 $db_user ='root';
