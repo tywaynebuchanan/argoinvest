@@ -10,7 +10,12 @@ if(!isset($_SESSION['login_user'])){
 <body class="has-background-grey-lighter">
 </div>
 <div class="container space">
+<div class = "buttons is-small">
+	
+	
+</div>
 <?php ProfileInfo()?>
 <?php Prod()?>
+</div>
 </body>
 </html>

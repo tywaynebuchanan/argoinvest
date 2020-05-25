@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
             {
             	
 				$_SESSION['login_user'] = $username;
-				$_SESSION['username'] =$row["user_name"];
+				// $_SESSION['username'] =$row["user_name"];
 				header("location:landing.php");
 		}else{ 
 			echo'<div class = "no-space">

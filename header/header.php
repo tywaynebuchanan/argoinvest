@@ -4,6 +4,7 @@
 <html>
 <head>
   <title>Agro Invest</title>
+  <meta http-equiv="refresh" content="120" >
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma-extensions@4.0.0/dist/css/bulma-extensions.min.css">

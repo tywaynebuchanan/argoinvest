@@ -3,8 +3,8 @@
       include ('functions/functions.php');
       include ('header/header.php');
 if(!isset($_SESSION['login_user'])){
-  header("location:index.php");
-}
+  header("location:index.php");}
+
 ?>
 <section class="hero is-link">
   <div class="hero-body">
@@ -50,38 +50,11 @@ if(!isset($_SESSION['login_user'])){
 
 <div class="container space">
 
-<?php $prop_query = "SELECT * FROM tblProperties"; 
-  $proresults = mysqli_query($conn,$prop_query);
+<?php
+Property()
 ?>
 <!-- Column Start -->
-<div class="columns">
-  <div class="columnn is-narrow"> <!-- Column Start -->
-    
-            <div class="container">
-              <div class="table-container space has-text-weight-medium">
-                <table class="table space">
-                    <!-- <th>PropertyID</th> -->
-                    <th>Name</th>
-                    <th>Acreage</th>
-                  <tbody class="has-text-centered">
-                  <?php 
-                  while ($row2 = mysqli_fetch_assoc($proresults)){
-                      //$properityid = $row2["PropertyID"];
-                      $name = $row2["Name"];
-                      $acreage = $row2["Acreage"];
-                      
-                    
-                    echo "<tr>";
-                    //echo "<td>{$properityid}</td>";
-                    echo "<td><a class ='button is-success' href='landing.php?id='>{$name}</a></td>";
-                    echo "<td><span class='tag is-link is-normal'>{$acreage}</span></td>";
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-        </div>
-      </div> <!-- Column End -->
+
 
 <div class="column">
 <!-- <div class="column is is-one-fifth"> -->
@@ -106,8 +79,8 @@ if(!isset($_SESSION['login_user'])){
               $lastname = $row["LastName"];
               $trn = $row["TRN"];
               $tcc = $row["TCC"];
-              $startdate = $row["StartDate"];
-              $enddate = $row["EndDate"];
+              $startdate = date('F j,Y',strtotime($row["StartDate"]));
+              $enddate = date('F j,Y',strtotime($row["EndDate"]));
               $link = "<td><a class ='button is-success is-rounded' href ='profile_info.php?id={$filenumber}'>View More</a></td>";
             echo "<tr>";
             echo "<td>{$filenumber}</td>";
@@ -118,6 +91,7 @@ if(!isset($_SESSION['login_user'])){
             echo "<td>{$startdate}</td>";
             echo "<td>{$enddate}</td>";
             echo $link;
+            echo "</tr>";
           }
             ?>
           </tbody>
@@ -129,6 +103,7 @@ if(!isset($_SESSION['login_user'])){
 </div>
 
 </div>
+
 
 
 
