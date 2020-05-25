@@ -61,6 +61,10 @@ echo'
 
   <div class="column is-one-third small-padding"><label class = "label">Property ID</label><input name="address" class="input" readonly value ='.$row["PropertyID"].'></div>
 
+   <div class="column is-one-third small-padding"><label class = "label">Irrigation</label><input name="address" class="input" readonly value ='.$row["Irrigation"].'></div>
+
+   <div class="column is-one-third small-padding"><label class = "label">Un-Irrigated</label><input name="address" class="input" readonly value ='.$row["NoIrrigation"].'></div>
+
     <div class="column is-one-third small-padding"><label class = "label">Revenue</label><input name="address" class="input" readonly value =$'.$row["Revenue"].'></div>
 </fieldset>
 
@@ -126,8 +130,20 @@ $total = 0;
                   }
 
 //Query to show the amount of land and acreage per property
-$prop_query = "SELECT * FROM tblProperties"; 
+$prop_query = "SELECT * FROM tblProperties WHERE PropertyID ='PGR'"; 
 $proresults = mysqli_query($conn,$prop_query);
+while ($w = mysqli_fetch_assoc($proresults)){
+                    $size = $w["SizePark"];
+                    // $total += $value;
+                  }
+
+$ah_query = "SELECT * FROM tblProperties WHERE PropertyID ='AH'"; 
+$ah_results = mysqli_query($conn,$ah_query);
+while ($ah = mysqli_fetch_assoc($ah_results)){
+                    $ah_size = $ah["SizePark"];
+                    // $total += $value;
+                  }
+
 
 
 
@@ -144,9 +160,31 @@ $EBP = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'EBP'";
 
        $PRGresults= mysqli_query($conn,$PGR);
        $PRGcount = mysqli_num_rows($PRGresults);
-       
+        while ($r = mysqli_fetch_assoc($PRGresults)){
+                    $value1 = $r["Acreage"];
+                    $irr = $r["Irrigation"];
+                    $noirr = $r["NoIrrigation"];
+                    $totala += $value1;
+                    $totalirr += $irr;
+                    $totalnoirr += $noirr;
+                  }
+
+
        $AHresults = mysqli_query($conn,$AH);
        $AHcount = mysqli_num_rows($AHresults);
+       while ($r1 = mysqli_fetch_assoc($AHresults)){
+                    $ah_acreage = $r1["Acreage"];
+
+                    $ah_irr = $r1["Irrigation"];
+
+                    $ah_noirr = $r1["NoIrrigation"];
+
+                    $ah_total += $ah_acreage;
+
+                    $ah_totalirr += $ah_irr;
+
+                    $t_ahnoirr += $ah_noirr;
+                  }
 
        $SPresults = mysqli_query($conn,$SP);
        $SPcount = mysqli_num_rows($SPresults);
@@ -163,23 +201,58 @@ $EBP = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'EBP'";
        $EBPresults = mysqli_query($conn,$EBP);
        $EBPcount = mysqli_num_rows($EBPresults);
 
-       // $AHresults = mysqli_query($conn,$AH);
-       // $AHcount = mysqli_num_rows($AHresults);
+      
+        $l= $size-$totala;
+        $m = $size-$totalirr;
 
-       // $AHresults = mysqli_query($conn,$AH);
-       // $AHcount = mysqli_num_rows($AHresults);
+          $available = $ah_size - $ah_total;
+          $un_grated = $ah_size- $t_ahnoirr;
+       
+//Total Lessee at each park 
+$TotalLesse = array($PRGcount,$AHcount,$SPcount,$SVcount,$RHcount,$NRcount,$EBPcount);
 
+//Total Size of each park
+$TotalSize = array($size,$ah_size);
+
+//Total Acreage Available
+$TotalAvailable = array($l,$available);
+
+//Total Irrigated 
+$TotalIrrigated = array($totalirr,$ah_totalirr);
+
+//Total Un-irrigated 
+$TotalUnIrrigated = array($totalnoirr,$t_ahnoirr);
        echo "<div class='columns'>
   <div class='columnn is-narrow'>
             <div class='container'>
               <div class='table-container space has-text-weight-medium'>
                 <table class='table space'>
+
                     <th>Property Name</th>
-                    <th>Number of Lesses</th>";
-                    echo "<tr><td>Plantain Garden River</td>";   
-                    echo"<td class ='has-text-centered'>{$PRGcount}</td><tr>";
+                     <th>Number of Lesses</th>
+                    <th>Size of Park</th>
+                    <th>Acreage Leased</th>
+                     <th>Acreage Avaiable</th>
+                     <th>Total Irrigated</th>
+                      <th>Total Un-Irrigated</th>
+                    
+                    <th></th>";
+                    echo "<tr><td>Plantain Garden River</td>"; 
+                     echo"<td class ='has-text-centered'>{$PRGcount}</td>";  
+                    echo"<td class ='has-text-centered'>{$size}</td>";
+                    echo"<td class ='has-text-centered'>{$totala}</td>";
+                    echo"<td class ='has-text-centered'>{$l}</td>";
+                    echo"<td class ='has-text-centered'>{$totalirr}</td>";
+                    echo"<td class ='has-text-centered'>{$totalnoirr}</td><tr>";
+
                      echo "<tr><td>Amity Hall</td>";   
-                    echo"<td class ='has-text-centered'>{$AHcount}</td><tr>";
+                    echo"<td class ='has-text-centered'>{$AHcount}</td>";
+                    echo"<td class ='has-text-centered'>{$ah_size}</td>";
+                    echo"<td class ='has-text-centered'>{$ah_total}</td>";
+                    echo"<td class ='has-text-centered'>{$available}</td>";
+                    echo"<td class ='has-text-centered'>{$ah_totalirr}</td>";
+                     echo"<td class ='has-text-centered'>{$t_ahnoirr }</td><tr>";
+
                     echo "<tr><td>Spring Plain</td>";   
                     echo"<td class ='has-text-centered'>{$SPcount}</td><tr>";
                      echo "<tr><td>Spring Vale</td>";   
@@ -189,20 +262,20 @@ $EBP = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'EBP'";
                     echo "<tr><td>New River</td>";   
                     echo"<td class ='has-text-centered'>{$NRcount}</td><tr>";
                     echo "<tr><td>Ebony Park</td>";   
-                    echo"<td class ='has-text-centered'>{$EBPcount}</td><tr>";
+                    echo"<td class ='has-text-centered'>{$EBPcount}</td><tr>
+                    </tbody>";
 
-                  // while ($row1 = mysqli_fetch_assoc($propresults)){
-                  //     $name = $row1["Property"];
-                  //     echo "<tbody class='has-text-centered'>";
-                  
-                  // }
-
-
-                  echo "</tr>
-                  <th>Total Land Leased</th>
+                    echo"<tfoot>";
+                  echo "<tr>
+                  <th>Total</th>
+                <th class ='has-text-centered'>".array_sum($TotalLesse)."</th>
+                <th class ='has-text-centered'>".array_sum($TotalSize)."</th>
                 <th class ='has-text-centered'>{$total}</th>
-                <th></th>
-                </tbody>  
+                <th class ='has-text-centered'>".array_sum($TotalAvailable)."</th>
+                <th class ='has-text-centered'>".array_sum($TotalIrrigated)."</th>
+                <th class ='has-text-centered'>".array_sum($TotalUnIrrigated)."</th>
+                </tr>
+                 </tfoot>
                </table>
         
             </div>

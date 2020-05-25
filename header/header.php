@@ -40,6 +40,10 @@
        Add a Lessee
       </a>
 
+      <a href="pro_profile.php" class="navbar-item">
+       Property Profile
+      </a>
+
         </div>
       </div>
     </div>

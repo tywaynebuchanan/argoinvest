@@ -21,7 +21,7 @@ if(!isset($_SESSION['login_user'])){
 
         if(isset($_POST['keyword'])){
           $searchKey = mysqli_real_escape_string($conn,$_POST['keyword']);
-          $filterquery = "SELECT * FROM tblPersonalInformation WHERE FirstName LIKE '%$searchKey%'";
+          $filterquery = "SELECT * FROM tblPersonalInformation WHERE FirstName LIKE '%$searchKey%' OR PropertyID LIKE '%$searchKey%' OR LastName LIKE '%$searchKey%'";
           
 
         } else{
@@ -50,9 +50,7 @@ if(!isset($_SESSION['login_user'])){
 
 <div class="container space">
 
-<?php
-Property()
-?>
+
 <!-- Column Start -->
 
 
