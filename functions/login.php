@@ -1,3 +1,4 @@
+<?php ob_start()?>
 <?php include ('config/dbconn.php');
 
 
@@ -16,7 +17,7 @@ if(isset($_POST['submit'])){
 		$password = $_POST['password'];
 		// $login_date = date("Y-m-d");
     	
-		// $_SESSION['time_login'] = time();
+		$_SESSION['time_login'] = time();
 		
 		//Statements to prevent hackers from hacking your site
 		$username = strip_tags(mysqli_real_escape_string($conn,trim($username)));
@@ -33,7 +34,7 @@ if(isset($_POST['submit'])){
             	
 				$_SESSION['login_user'] = $username;
 				// $_SESSION['username'] =$row["user_name"];
-				header("location:landing.php");
+				header("location:home_page.php");
 		}else{ 
 			echo'<div class = "no-space">
               <div class="notification is-warning has-text-centered">

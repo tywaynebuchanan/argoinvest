@@ -7,6 +7,7 @@ if(!isset($_SESSION['login_user'])){
 
 ?>
 
+
 <section class="hero is-link">
   <div class="hero-body">
     <div class="container">
@@ -19,6 +20,31 @@ if(!isset($_SESSION['login_user'])){
       </div>
   </section>
 
+  <!-- Breadcrumb-->
+
+<nav class="breadcrumb has-background-white" aria-label="breadcrumbs">
+  <div class="container space">
+  <ul>
+    <li>
+      <a href="landing.php">
+        <span class="icon is-small">
+          <i class="fas fa-home" aria-hidden="true"></i>
+        </span>
+        <span>Home</span>
+      </a>
+    </li>
+    <li class="is-active">
+      <a href="pro_profile.php">
+        <span class="icon is-small">
+          <i class="fas fa-book" aria-hidden="true"></i>
+        </span>
+        <span>Property Profile</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</nav>
+
 <div class="container space">
 
 <?php
@@ -26,4 +52,6 @@ Property()
 ?>
 
 </div>
+
+
 </html>

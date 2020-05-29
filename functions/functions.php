@@ -1,35 +1,67 @@
 <?php
 include 'config/dbconn.php';
 
+function InfoBreadCrumb(){
+  global $conn;
+$filenumber = $_GET['id'];
+$sql1 = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE FileNumber = '$filenumber'");
+
+while ($row1 = mysqli_fetch_assoc($sql1)){
+$fname = $row1["FirstName"];
+$lname = $row1["LastName"];
+
+echo $fname." ".$lname;
+
+}
+}
+
 function ProfileInfo(){
 global $conn;
 $hectare = 0.405;
 $filenumber = $_GET['id'];
-$sql = "SELECT * FROM tblPersonalInformation WHERE FileNumber = '$filenumber'";
+
+$sql = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE FileNumber = '$filenumber'");
 $startdate = date('F j,Y',strtotime($row["StartDate"]));
 $enddate = date('F j,Y',strtotime($row["EndDate"]));
-
-$sql = mysqli_query($conn,$sql);
 				while ($row = mysqli_fetch_assoc($sql))
-echo'
+
+
+echo '
+ <p class="has-text-link">Updated by:'.$row["User"].'<p>
 <fieldset class = "box">
 <legend class="label has-text-justified">Personal Data</legend>
 <div class="columns is-mobile is-multiline">
-  <div class="column is-one-quarter small-padding"><label class = "label">FileNumber</label><input name="fname" class="input" readonly value ='.$row["FileNumber"].'></div>
+  <div class="column is-2 small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-hashtag"></i>
+</span>FileNumber</label><input name="fname" class="input" readonly value ='.$row["FileNumber"].'></div>
 
-  <div class="column is-one-third small-padding"><label class = "label">First Name</label><input name="lname" class="input" readonly value ='.$row["FirstName"].'></div>
+  <div class="column is-4 small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-user"></i>
+</span>First Name</label><input name="lname" class="input" readonly value ='.$row["FirstName"].'></div>
 
-  <div class="column is-one-third small-padding"><label class = "label">Last Name</label><input name="lname" class="input"readonly value ='.$row["LastName"].'></div>
+  <div class="column is-4 small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-user"></i>
+</span>Last Name</label><input name="lname" class="input"readonly value ='.$row["LastName"].'></div>
 
-<div class="column is-full"><label class = "label">Address</label><textarea class="textarea has-fixed-size"  readonly>'.$row["Street"].",".$row["City"].",".$row["Parish"].'</textarea></div>
+<div class="column is-12"><label class = "label"><span class="icon">
+  <i class="fas fa-home"></i>
+</span>Address</label><div>'.$row["Street"].",".$row["City"].",".$row["Parish"]. '</div></div>
 
-  <div class="column is-one-quarter small-padding"><label class = "label">Office Phone Number</label><input name="email" type="email" readonly class="input" value ='.$row["OfficePhone"].'></div>
+  <div class="column is-one-quarter small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-phone"></i>
+</span>Office Phone Number</label><input name="email" type="email" readonly class="input" value ='.$row["OfficePhone"].'></div>
 
-  <div class="column is-one-quartersmall-padding"><label class = "label">Home Phone Number</label><input name="address" class="input" readonly value ='.$row["HomePhone"].'></div>
+  <div class="column is-one-quartersmall-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-phone"></i>
+</span>Home Phone Number</label><input name="address" class="input" readonly value ='.$row["HomePhone"].'></div>
   
-  <div class="column is-one-quarter small-padding"><label class = "label">Cell Phone Number</label><input name="address" class="input" readonly value ='.$row["CellPhone"].'></div>
+  <div class="column is-one-quarter small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-phone"></i>
+</span>Cell Phone Number</label><input name="address" class="input" readonly value ='.$row["CellPhone"].'></div>
 
-  <div class="column is-one-quarter small-padding"><label class = "label">Email Address</label><input name="address" class="input" readonly value ='.$row["Email"].'></div>
+  <div class="column is-one-quarter small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-at"></i>
+</span>Email Address</label><input name="address" class="input" readonly value ='.$row["Email"].'></div>
   </fieldset>
 
 <fieldset class = "box">
@@ -45,27 +77,46 @@ echo'
 <legend class="label has-text-justified">Property Information</legend>
 <div class="columns is-mobile is-multiline">
 	
-   <div class="column is-one-third small-padding"><label class = "label">Lease Start Date</label>'.date('F j,Y',strtotime($row["StartDate"])).'</div>
+   <div class="column is-one-fourth small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-calendar-alt"></i>
+</span>Lease Start Date</label>'.date('F j,Y',strtotime($row["StartDate"])).'</div>
 
-  <div class="column is-one-third small-padding"><label class = "label">Lease End Date</label>'.date('F j,Y',strtotime($row["EndDate"])).'</div>
+  <div class="column is-one-fourth small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-calendar-alt"></i>
+</span>Lease End Date</label>'.date('F j,Y',strtotime($row["EndDate"])).'</div>
 
-  <div class="column is-one-third small-padding"><label class = "label">Lease Term</label>'.$y = abs($row["EndDate"] - $row["StartDate"]).'</div>
+  <div class="column is-one-fourth small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-calendar-alt"></i>
+</span>Lease Term</label>'.$y = abs($row["EndDate"] - $row["StartDate"]).'</div>
 
-   <div class="column is-one-third small-padding"><label class = "label">Property</label>'.$row["Property"].'</div>
 
-  <div class="column is-one-third small-padding"><label class = "label">Rate</label><input name="address" class="input" readonly value =$'.$row["Rate"].'></div>
+</div>
 
-  <div class="column is-one-third small-padding"><label class = "label">Acreage</label><input name="address" class="input" readonly value ='.$row["Acreage"].'></div>
+<div class="columns is-mobile is-multiline">
+  <div class="column is-one-fourth small-padding"><label class = "label">Acreage</label>'.$row["Acreage"].'</div>
 
-   <div class="column is-one-third small-padding"><label class = "label">Hectare</label><input name="address" class="input" readonly value ='.$row["Hectare"].'></div>
+   <div class="column is-one-fourth small-padding"><label class = "label">Hectare</label>'.$row["Hectare"].'</div>
 
-  <div class="column is-one-third small-padding"><label class = "label">Property ID</label><input name="address" class="input" readonly value ='.$row["PropertyID"].'></div>
+  <div class="column is-one-fourth small-padding"><label class = "label">Property ID</label>'.$row["PropertyID"].'</div>
 
-   <div class="column is-one-third small-padding"><label class = "label">Irrigation</label><input name="address" class="input" readonly value ='.$row["Irrigation"].'></div>
+   <div class="column is-one-fourth small-padding"><label class = "label">Property Name</label>'.$row["Property"].'</div>
 
-   <div class="column is-one-third small-padding"><label class = "label">Un-Irrigated</label><input name="address" class="input" readonly value ='.$row["NoIrrigation"].'></div>
+   <div class="column is-one-fourth small-padding has-text-centered"><label class = "label"><span class="icon">
+  <i class="fas fa-tint"></i>
+</span>Irrigation</label>'.$row["Irrigation"].'</div>
 
-    <div class="column is-one-third small-padding"><label class = "label">Revenue</label><input name="address" class="input" readonly value =$'.$row["Revenue"].'></div>
+   <div class="column is-one-fourth small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-tint-slash"></i>
+</span>Un-Irrigated</label>'.$row["NoIrrigation"].'</div>
+
+   <div class="column is-one-fourth small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-money-bill-alt"></i>
+</span>Rate</label>$'.$row["Rate"].'</div>
+
+    <div class="column is-one-fourth small-padding"><label class = "label"><span class="icon">
+  <i class="fas fa-money-bill-alt"></i>
+</span>Revenue</label>$'.$row["Revenue"].'</div>
+    </div>
 </fieldset>
 
 ';
@@ -73,10 +124,22 @@ echo'
 echo "
 <div class = 'container'>
 <div class = 'buttons'>
-<a class = 'button is-success is-rounded' href ='viewlease.php?id={$filenumber}'>Generate Lease</a>
-  <a class = 'button is-success is-rounded' href ='landing.php'>Renew Lease</a>
-  <a class = 'button is-success is-rounded' href ='landing.php'>Update Personal Information</a>
-  <a class = 'button is-danger  is-rounded 'href ='landing.php'>Close File</a>
+<a class = 'button is-link is-rounded' href ='viewlease.php?id={$filenumber}'><span class='icon'>
+  <i class='fas fa-file-alt'></i>
+</span><span>Generate Lease</span></a>
+
+  <a class = 'button is-link is-rounded' href ='landing.php'><span class='icon'>
+  <i class='fas fa-file-alt'></i>
+</span><span>Renew Lease</span></a>
+
+  <a class = 'button is-link is-rounded' href ='landing.php'>Update Personal Information</a>
+
+<a class = 'button is-link is-rounded' href ='landing.php'><span class='icon'>
+  <i class='fas fa-paper-plane'></i>
+</span><span>Email Lease</span></a>
+
+
+  
   </div>
   </div>
 ";
@@ -87,80 +150,73 @@ echo '<div class = "container">
 <div class="table-container ">
   <table class="table is-bordered is-fullwidth space">
       <th>Notes</th>
-      <th>DateCreated</th>
+      <th>Date Created</th>
       <th>User</th>
      <tbody class="has-text-centered">
 </div>
 </fieldset>
 </div>';
 
+
+
+
+
+
+
 }
 
 
-function Prod(){
+function Production_Notices(){
 global $conn;
 $filenumber = $_GET['id'];
-$sql1 = "SELECT * FROM tblNotes WHERE FileNumber = '$filenumber'";
-$sql1 = mysqli_query($conn,$sql1);
-	
-			
-while ($row1 = mysqli_fetch_assoc($sql1))
-echo '
+$sql1 = mysqli_query($conn,"SELECT * FROM tblNotes WHERE FileNumber = '$filenumber'");
+if($sql1->num_rows > 0)
+while ($row1 = mysqli_fetch_assoc($sql1)){
+echo'
+<tr><td>'.$row1["Notes"] .'</td><td>'.date('F j,Y',strtotime($row1["DateCreated"])). '</td><td>'.$row1["username"]. '</td></tr>';
+} 
+else{
+  echo'<div class = "container">
+              <div class="notification is-link has-text-justified"">
+                <strong> No Production Notices</strong>
+              </div>
+            </div>';
 
-<tr><td>'.$row1["Notes"] .'</td><td>'.date('F j,Y',strtotime($row1["DateCreated"])). '</td><td>'.$row1["username"]. '</td></tr>
-</fieldset>
-</div>';
-
-;
-					
-
+}
 }
 
 
 function Property(){
-
 global $conn;
-
 $total = 0;
-      $totalland = "SELECT * FROM tblPersonalInformation";
-       $landresults = mysqli_query($conn,$totalland);
-          while ($row3 = mysqli_fetch_assoc($landresults)){
+      $totalland = mysqli_query($conn,"SELECT * FROM tblPersonalInformation");
+          while ($row3 = mysqli_fetch_assoc($totalland)){
                     $value = $row3["Acreage"];
                     $total += $value;
                   }
 
 //Query to show the amount of land and acreage per property
-$prop_query = "SELECT * FROM tblProperties WHERE PropertyID ='PGR'"; 
-$proresults = mysqli_query($conn,$prop_query);
-while ($w = mysqli_fetch_assoc($proresults)){
+$prop_query = mysqli_query($conn,"SELECT * FROM tblProperties WHERE PropertyID ='PGR'"); 
+while ($w = mysqli_fetch_assoc($prop_query)){
                     $size = $w["SizePark"];
-                    // $total += $value;
                   }
 
-$ah_query = "SELECT * FROM tblProperties WHERE PropertyID ='AH'"; 
-$ah_results = mysqli_query($conn,$ah_query);
-while ($ah = mysqli_fetch_assoc($ah_results)){
+$ah_query = mysqli_query($conn,"SELECT * FROM tblProperties WHERE PropertyID ='AH'"); 
+while ($ah = mysqli_fetch_assoc($ah_query)){
                     $ah_size = $ah["SizePark"];
-                    // $total += $value;
                   }
-
-
-
 
 //Query to count how many persons have leases at a property
-$PGR = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'PGR'";
-$AH = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'AH'";
-$SP = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'SP'";
-$SV = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'SV'";
-$RH = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'RH'";
-$NR = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'NR'";
-$EBP = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'EBP'";
-// $AH = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'AH'";
-// $AH = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'AH'";
+$PGR = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'PGR'");
+$AH = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'AH'");
+$SP = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'SP'");
+$SV = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'SV'");
+$RH = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'RHY'");
+$NR = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'NR'");
+$EBP = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE PropertyID = 'EBP'");
 
-       $PRGresults= mysqli_query($conn,$PGR);
-       $PRGcount = mysqli_num_rows($PRGresults);
-        while ($r = mysqli_fetch_assoc($PRGresults)){
+       $PRGcount = mysqli_num_rows($PGR);
+        while ($r = mysqli_fetch_assoc($PGR)){
                     $value1 = $r["Acreage"];
                     $irr = $r["Irrigation"];
                     $noirr = $r["NoIrrigation"];
@@ -170,19 +226,14 @@ $EBP = "SELECT * FROM tblPersonalInformation WHERE PropertyID = 'EBP'";
                   }
 
 
-       $AHresults = mysqli_query($conn,$AH);
-       $AHcount = mysqli_num_rows($AHresults);
-       while ($r1 = mysqli_fetch_assoc($AHresults)){
+       // $AHresults = mysqli_query($conn,$AH);
+       $AHcount = mysqli_num_rows($AH);
+       while ($r1 = mysqli_fetch_assoc($AH)){
                     $ah_acreage = $r1["Acreage"];
-
                     $ah_irr = $r1["Irrigation"];
-
                     $ah_noirr = $r1["NoIrrigation"];
-
                     $ah_total += $ah_acreage;
-
                     $ah_totalirr += $ah_irr;
-
                     $t_ahnoirr += $ah_noirr;
                   }
 
@@ -281,6 +332,21 @@ $TotalUnIrrigated = array($totalnoirr,$t_ahnoirr);
             </div>
         </div>
       </div>";
+
+}
+
+
+function UserInfo(){
+
+  include  'config/dbconn.php';
+  $username = $_SESSION['login_user'];
+
+  $query = $conn->query("SELECT * FROM users WHERE username = '$username';");
+  if ($query->num_rows > 0){
+  while ($row = $query->fetch_assoc())
+    echo $row['user_name']." ".'<p>('.$row["user_role"].')</p>';
+    
+}
 
 }
 
