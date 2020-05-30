@@ -10,7 +10,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma-extensions@4.0.0/dist/css/bulma-extensions.min.css">
   <link href="~bulma-calendar/dist/css/bulma-calendar.min.css" rel="stylesheet">
+  <script type="text/javascript" language="javascript" src="js/jqueryv3.5.1.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/scriptval.js"></script>
+  
   <script src="~bulma-calendar/dist/js/bulma-calendar.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-extensions@6.2.7/dist/js/bulma-extensions.min.js" integrity="sha256-q4zsxO0fpPm6VhtL/9QkCFE5ZkNa0yeUxhmt1VO1ev0=" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -20,6 +23,7 @@
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
   crossorigin="anonymous"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+ 
 </head>
 
 <body class="has-background-grey-lighter main">

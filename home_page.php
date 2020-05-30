@@ -5,13 +5,6 @@
 if(!isset($_SESSION['login_user'])){
   header("location:index.php");}
 
-if(isset($_SESSION['login_user'])){
-    if((time() - $_SESSION['last_time']) > 60)//time in seconds
-    {
-      header("location:logout.php");
-    } 
-}
-
 ?>
 <section class="hero is-link">
   <div class="hero-body">
@@ -27,7 +20,7 @@ if(isset($_SESSION['login_user'])){
           $searchKey = mysqli_real_escape_string($conn,$_POST['keyword']);
           $filterquery = "SELECT * FROM tblPersonalInformation WHERE FirstName LIKE '%$searchKey%' OR PropertyID LIKE '%$searchKey%' OR FirstName LIKE '%$searchKey%'";
         } else{
-          $filterquery = "SELECT * FROM tblPersonalInformation";
+          $filterquery = "SELECT * FROM tblPersonalInformation ORDER BY ApplicationDate ASC;";
           $searchKey = "";
         }
         $result = mysqli_query($conn,$filterquery);

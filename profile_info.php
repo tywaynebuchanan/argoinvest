@@ -6,12 +6,6 @@ if(!isset($_SESSION['login_user'])){
   header("location:index.php"); 
 }
 
-if(isset($_SESSION['login_user'])){
-    if((time() - $_SESSION['last_time']) > 60)//time in seconds
-    {
-      header("location:logout.php");
-    } 
-}
 
 ?>
 

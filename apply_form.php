@@ -7,13 +7,6 @@ if(!isset($_SESSION['login_user'])){
   header("location:index.php");
 }
 
-if(isset($_SESSION['login_user'])){
-    if((time() - $_SESSION['last_time']) > 60)//time in seconds
-    {
-      header("location:logout.php");
-    } 
-}
-
 ?>
 
 <!--Hero-->
@@ -57,8 +50,8 @@ if(isset($_SESSION['login_user'])){
 </nav>
 <!--End of Breadcrumb-->
 
+<!-- Application Form Div --->
 <div class="container space">
-
   <article class="message is-link">
  <div class="message-header">
   <p>PROPERTY LEASE APPLICATION FORM</p>
@@ -72,7 +65,7 @@ if(isset($_SESSION['login_user'])){
 
 <div class="container space">
 
-<form enctype="multipart/form-data" method="POST" id="applyform" autocomplete="off">
+<form enctype="multipart/form-data" method="POST" id="applyform" onsubmit="return Validate()" autocomplete="off">
 
 <fieldset class = "box">
 <article class="message is-link">
@@ -86,7 +79,8 @@ if(isset($_SESSION['login_user'])){
     <label class = "label"><span class="icon">
       <i class="fas fa-hashtag"></i>
       </span>FileNumber</label>
-      <input name="filenumber" id="filenumber" class="input" placeholder="File Number">
+      <input name="filenumber" id="filenumber" class="input" placeholder="File Number" onkeydown="UpperCase()">
+          <p class="help has-text-danger" id="err_file"></p>
   </div>
 
   <div class="column is-4 small-padding">
@@ -94,33 +88,24 @@ if(isset($_SESSION['login_user'])){
         <span class="icon">
         <i class="fas fa-user"></i>
         </span>First Name</label>
-        <input name="fname" id="fname" class="input" placeholder="First Name" onchange="firstname(this)">
-        <div class="hide-content" id="error_f">
-          <p class=" help is-danger" >Please enter a firstname</p>
-        </div>
+        <input name="fname" id="fname" class="input" placeholder="First Name">
+        <p class="help has-text-danger" id="err_fname"></p>
       </div>
-
-
-
   <div class="column is-4 small-padding">
     <label class = "label"><span class="icon">
       <i class="fas fa-user"></i>
       </span>Last Name</label>
-      <input name="lname" id="lname" class="input" placeholder="Last Name" onchange="lastname(this)">
-      <div class="hide-content" id="error_l">
-          <p class=" help is-danger" >Please enter a lastname</p>
-        </div>
+      <input name="lname" id="lname" class="input" placeholder="Last Name">
+          <p class="help has-text-danger" id="err_lname"></p>
   </div>
-
-
-
 
   <div class="column is-4">
     <label class = "label">
       <span class="icon">
       <i class="fas fa-home"></i>
       </span>Street</label>
-      <input name="street" class="input" placeholder="Please enter the street">
+      <input name="street" id="street" class="input" placeholder="Please enter the street">
+      <p class="help has-text-danger" id="err_street"></p>
   </div>
 
   <div class="column is-4">
@@ -128,15 +113,18 @@ if(isset($_SESSION['login_user'])){
       <span class="icon">
       <i class="fas fa-home"></i>
       </span>City</label>
-      <input name="city" class="input" placeholder="Please enter the city">
+      <input name="city" class="input" id="city" placeholder="Please enter the city">
+      <p class="help has-text-danger" id="err_city"></p>
   </div>
 
   <div class="column is-4">
     <div class="control">
-      <label class = "label">Parish</label>
+      <label class = "label"><span class="icon">
+      <i class="fas fa-home"></i>
+      </span>Parish</label>
         <div class="select">
           <select name="parish">
-              <option>Select Parish</option>
+              <option selected="true" disabled="disabled">Select Parish</option>
               <option value="Kingston">Kingston</option>
               <option value="St Andrew">St Andrew</option>
               <option value="St Thomas">St Thomas</option>
@@ -165,52 +153,50 @@ if(isset($_SESSION['login_user'])){
 <div class="message-body">
   <div class="columns is-mobile is-multiline">
     
-    <div class="column is-2 small-padding">
-      <label class = "label">Office Phone Number</label>
-        <div class="field">
-          </p>
-          <p class="control">
-            <input class="input" name="officephone" id="officephone" type="tel">
-          </p>
-        </div>
-    </div>
-
-    <div class="column is-2 small-padding">
-      <label class = "label">Mobile/Cell Number</label>
-        <div class="field">
-          <p class="control">
-            <input class="input" name="cellphone" id="mobilephone" type="tel">
-          </p>
-        </div>
-    </div>
-<script>
-  $(document).ready(function($){
-
-  $('#homephone').mask("999-999-9999",{placeholder:"876-XXX-XXXX"});
-  $('#mobilephone').mask("999-999-9999",{placeholder:"876-XXX-XXXX"});
-  $('#officephone').mask("999-999-9999",{placeholder:"876-XXX-XXXX"});
-  $('#trn').mask("999-999-999",{placeholder:"XXX-XXX-XXX"});
-  $('#tcc').mask("999-999-999",{placeholder:"XXX-XXX-XXX"});
-
-  });
-
-  </script>
-
-     <div class="column is-2 small-padding">
-      <label class = "label">Home Phone Number</label>
-        <div class="field">
-          
-          <p class="control">
-            <input class="input" name="homephone" type="tel" id="homephone">
-          </p>
-        </div>
-    </div>
-
-    <div class="column is-4 small-paddingd">
+    <div class="column is-3 small-padding">
       <label class = "label"><span class="icon">
-        <i class="fas fa-user"></i>
+      <i class="fas fa-phone"></i>
+      </span>Office Phone Number</label>
+        <div class="field">
+          </p>
+          <p class="control">
+            <input class="input" maxlength="12" name="officephone" id="officephone" type="tel">
+            <p class="help has-text-danger" id="err_ophone"></p>
+          </p>
+        </div>
+    </div>
+
+    <div class="column is-3 small-padding">
+      <label class = "label"><span class="icon">
+      <i class="fas fa-phone"></i>
+      </span>Mobile/Cell Number</label>
+        <div class="field">
+          <p class="control">
+            <input class="input" maxlength="12" name="cellphone" id="mobilephone" type="tel">
+             <p class="help has-text-danger" id="err_mphone"></p>
+          </p>
+        </div>
+    </div>
+
+
+     <div class="column is-3 small-padding">
+      <label class = "label"><span class="icon">
+      <i class="fas fa-phone"></i>
+      </span>Home Phone Number</label>
+        <div class="field">
+          <p class="control">
+            <input class="input" maxlength="12" name="homephone" type="tel" id="homephone">
+             <p class="help has-text-danger" id="err_hphone"></p>
+          </p>
+        </div>
+    </div>
+
+    <div class="column is-3 small-paddingd">
+      <label class = "label"><span class="icon">
+       <i class="fas fa-envelope-open-text"></i>
         </span>Email Address</label>
-        <input name="email" class="input" type="email" placeholder="eg. johnbrown@gmail.com">
+        <input name="email" class="input" id="email" type="email" placeholder="eg. johnbrown@gmail.com">
+        <p class="help has-text-danger" id="error_email"></p>
     </div>
   </div>
 </article>
@@ -223,18 +209,21 @@ if(isset($_SESSION['login_user'])){
 <div class="message-body">
   <div class="columns is-mobile is-multiline">
 
-    <div class="column is-4 small-paddingd">
+    <div class="column is-4 small-padding">
       <label class = "label"><span class="icon">
-        <i class="fas fa-user"></i>
+        <i class="fas fa-list-ol"></i>
         </span>Taxpayer Identification Number(TRN)</label>
-        <input name="trn" class="input" type="text" id="trn">
+        <input name="trn" class="input" type="tel" maxlength="11" id="trn">
+        <p class="help has-text-danger" id="error_trn"></p>
     </div>
 
-    <div class="column is-4 small-paddingd">
+    <div class="column is-4 small-padding">
       <label class = "label"><span class="icon">
-        <i class="fas fa-user"></i>
+        <i class="fas fa-list-ol"></i>
         </span>Company TRN</label>
-        <input name="tcc" class="input" type="text" id="tcc">
+        <input name="tcc" class="input" maxlength="11" type="tel" id="tcc">
+        <p class="help has-text-danger" id="error_tcc"></p>
+        
     </div>
     
  <!--  <div class="column is-3 small-paddingd">
@@ -276,56 +265,58 @@ if(isset($_SESSION['login_user'])){
   
   <div class="column is-3">
       <label class = "label">
-      <span class="icon">
-      <i class="fas fa-calendar-alt"></i>
+      <i class="far fa-image"></i>
       </span>Acreage</label>
-      <input name="acreage" class="input" type="text" placeholder="Please enter acreage">
+      <input name="acreage" id="acreage" class="input" type="text" placeholder="Please enter acreage">
+      <p class="help has-text-danger"  id="error_arc"></p>
   </div>
 
-<!--  <div class="column is-3">
+ <div class="column is-3">
     <div class="control">
       <label class = "label">Irrigated(Yes/No)</label>
         <div class="select">
-          <select name = "irr">
-              <option>Select</option>
-              <option value="IRR">Irrigated</option>
-              <option value="NOIRR">Not Irrigated</option>
+          <select id="select">
+              <option selected="true" disabled="true">Select</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
           </select>
         </div>
     </div>
   </div>
- -->
-  <div class="column is-2">
+
+  <div class="column is-2" id="irr">
       <label class = "label">
       <span class="icon">
-      <i class="fas fa-calendar-alt"></i>
+    <i class="fas fa-tint"></i>
       </span>Irrigated</label>
-      <input name="irr" class="input" type="text" placeholder="">
+      <input name="irr"   id="irrigated" class="input" type="text" placeholder="" disabled>
   </div>
 
-  <div class="column is-2">
+  <div class="column is-2" id="noirr">
       <label class = "label">
       <span class="icon">
-      <i class="fas fa-calendar-alt"></i>
+     <i class="fas fa-tint-slash"></i>
       </span>Not Irrigated</label>
-      <input name="noirr" class="input" type="text" placeholder="">
+      <input name="noirr"  id="notirrigated" class="input" type="text" placeholder="" disabled>
   </div>
 
 
  <div class="column is-2">
       <label class = "label">
       <span class="icon">
-      <i class="fas fa-calendar-alt"></i>
+      <i class="fas fa-dollar-sign"></i>
       </span>Rate</label>
-      <input name="rate" class="input" placeholder="Please enter rate">
+      <input name="rate" id="rate" class="input" placeholder="Please enter rate">
+      <p class="help has-text-danger"  id="error_rate"></p>
   </div>
 
   <div class="column is-4">
     <div class="control">
-      <label class = "label">Property ID</label>
+      <label class = "label"><label class = "label">
+      <span class="icon"><i class="far fa-image"></i></span>Property ID</label>
         <div class="select">
           <select name = "propertyid">
-              <option >Select Property</option>
+              <option selected="true" disabled="true">Select Property</option>
               <option value="PGR">Plantian Garden</option>
               <option value="AH">Aminty Hall</option>
               <option value="SP">Spring Plain</option>
@@ -389,6 +380,7 @@ if(isset($_SESSION['login_user'])){
         <div class="field is-grouped">
           <p class="control">
             <input class="button is-link is-outlined" type="submit" name="submit" value="Submit Application">
+            <p class="help has-text-danger"  id="error_submit"></p>
           </p>
           <p class="control">
             <a class="button is-danger" href="landing.php">

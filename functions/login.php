@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
 		$password = $_POST['password'];
 		// $login_date = date("Y-m-d");
     	
-		$_SESSION['time_login'] = time();
+		// $_SESSION['time_login'] = time();
 		
 		//Statements to prevent hackers from hacking your site
 		$username = strip_tags(mysqli_real_escape_string($conn,trim($username)));
@@ -29,18 +29,18 @@ if(isset($_POST['submit'])){
 		$result = mysqli_query($conn,$query);
     	
     	$row = mysqli_num_rows($result);
-    	if($row==1)
+    	if($row!==1)
             {
-            	
-				$_SESSION['login_user'] = $username;
-				// $_SESSION['username'] =$row["user_name"];
-				header("location:home_page.php");
-		}else{ 
-			echo'<div class = "no-space">
+            	echo'<div class = "no-space">
               <div class="notification is-warning has-text-centered">
                 <strong>Opp!</strong> Your password is incorrect
               </div>
             </div>';
+				
+		}else{ 
+				$_SESSION['login_user'] = $username;
+				// $_SESSION['username'] =$row["user_name"];
+				header("location:home_page.php");
 			}
 
 mysqli_close($conn); // Close connection to the database

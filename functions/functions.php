@@ -138,6 +138,10 @@ echo "
   <i class='fas fa-paper-plane'></i>
 </span><span>Email Lease</span></a>
 
+<a class = 'button is-link is-rounded' href ='add_notes.php?id={$filenumber}'><span class='icon'>
+  <i class='fas fa-paper-plane'></i>
+</span><span>Update Notices</span></a>
+
 
   
   </div>
@@ -185,6 +189,35 @@ else{
 }
 }
 
+function Prod_Update(){
+global $conn;
+$filenumber = $_GET['id'];
+
+//Query to get client data
+$sql = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE FileNumber = '$filenumber'");
+if($sql->num_rows >0){
+while ($r = mysqli_fetch_assoc($sql)) 
+{
+    $name = $r["FirstName"];
+    
+}
+
+}
+
+
+$sql1 = mysqli_query($conn,"SELECT * FROM tblNotes WHERE FileNumber = '$filenumber'");
+if($sql1->num_rows > 0)
+while ($row1 = mysqli_fetch_assoc($sql1)){
+
+
+echo'
+<tr><td>'.$row1["Notes"] .'</td><td>'.date('F j,Y',strtotime($row1["DateCreated"])). '</td><td>'.$row1["username"]. '</td></tr>';
+} 
+else{
+  echo'<div class = "container">No Notices</div>';
+
+}
+}
 
 function Property(){
 global $conn;

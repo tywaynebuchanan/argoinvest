@@ -1,7 +1,7 @@
 <?php ob_start();?>
 <?php include ('functions/login.php');
 if(isset($_SESSION['login_user'])){
-  header("location:landing.php");
+  header("location:home_page.php");
 }
 ?>
 <!DOCTYPE html>
