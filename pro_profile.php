@@ -26,7 +26,7 @@ if(!isset($_SESSION['login_user'])){
   <div class="container space">
   <ul>
     <li>
-      <a href="landing.php">
+      <a href="home_page.php">
         <span class="icon is-small">
           <i class="fas fa-home" aria-hidden="true"></i>
         </span>
@@ -52,6 +52,4 @@ Property()
 ?>
 
 </div>
-
-
-</html>
+<?php include 'footer/footer.php';?>

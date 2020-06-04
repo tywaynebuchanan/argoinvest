@@ -373,17 +373,20 @@ if(!isset($_SESSION['login_user'])){
 <fieldset class = "box">
 <article class="message is-link">
   <div class="message-header">
+    <p class="help has-text-danger"  id="error_form"></p>
       <p>Please select an option</p>
+
   </div>
       <div class="message-body">
       
         <div class="field is-grouped">
           <p class="control">
             <input class="button is-link is-outlined" type="submit" name="submit" value="Submit Application">
-            <p class="help has-text-danger"  id="error_submit"></p>
+            
           </p>
+
           <p class="control">
-            <a class="button is-danger" href="landing.php">
+            <a class="button is-danger" href="home_page.php">
               Cancel application
             </a>
           </p>

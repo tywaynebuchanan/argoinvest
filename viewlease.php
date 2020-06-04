@@ -1,6 +1,38 @@
 <?php  
 ob_start();
 
+$daysInwords = array("first","second",
+"third",
+"fourth",
+"fifth",
+"sixth",
+"seventh",
+"eighth",
+"ninth",
+"tenth",
+"eleventh",
+"twelfth",
+"thirteenth",
+"fourteenth",
+"fifteenth",
+"sixteenth",
+"seventeenth",
+"eighteenth",
+"nineteenth",
+"twentieth",
+"twenty-first",
+"twenty-second",
+"twenty-third",
+"twenty-fourth",
+"twenty-fifth",
+"twenty-sixth",
+"twenty-seventh",
+"twenty-eighth",
+"twenty-ninth",
+"thirtieth",
+"thirty-first");
+
+
 //Database connection 
 include_once('config/dbconn.php');
 $filenumber = $_GET['id'];
@@ -38,23 +70,72 @@ while($row = mysqli_fetch_assoc($result)){
   $rate = $row['Rate'];
   $property = $row['Property']; 
   $acreage = $row['Acreage']; 
-
+  $hectare = $row['Hectare']; 
+  $propertyID = $row["PropertyID"];
   $y = abs($row["EndDate"] - $row["StartDate"]);
 
   $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
 
+  $day = date('jS',strtotime($startdate));
+
+  switch ($day) {
+    case "1st":
+      $day = $daysInwords[0];
+      break;
+    case "2nd":
+      $day = $daysInwords[1];
+      break;
+    case "3rd":
+       $day = $daysInwords[2];
+      break;
+    default:
+      echo "Your favorite color is neither red, blue, nor green!";
+  }
+
+// PGR - St Thomas
+// RHY - Clarendon
+// SP - Clarendon
+// AH - St Catherine
+// NR - St Elizabeth
+// EBP - Clarendon
+switch ($propertyID) {
+  case "PGR":
+    $Parish = "ST THOMAS";
+    break;
+  case "RHY":
+   $Parish = "Clarendon";
+    break;
+  // case "3rd":
+  //    $day = $daysInwords[2];
+  //   break;
+  // default:
+  //   echo "Your favorite color is neither red, blue, nor green!";
+}
+
+
+
 
  }
 
-$pdf->cell(190,5,'LEASE AGREEMENT',0,1,'C');
-$pdf->cell(190,5,'UNDER THE AGRO-INVESTMENT CORPORATION ACT',0,1,'C');
-$pdf->cell(190,5,'RHYMESBURY UNDER THE NATIONAL AGRO-PARK PROGRAMME',0,1,'C');
-$pdf->cell(190,5,'',0,1,'C');
+ $tbl = <<<EOD
+<table cellspacing="0" cellpadding="0" style="text-align:center">
+    <tr>
+        <td>LEASE AGREEMENT</td>
+    </tr>
+    <tr>
+         <td>UNDER THE AGRO-INVESTMENT CORPORATION ACT</td>
+    </tr>
+</table>
+EOD;
+
+$pdf->writeHTML($tbl, true, false, true, true, '');
+$html = '<table cellspacing="0" cellpadding="0"  style="text-align:center"><tr><td>'.strtoupper($property). 'ARGO PARK</td></tr></table>';
+$pdf->writeHTML($html, true, false, true, false, '');
 $pdf->SetFont('Times','',12);
-$html = '<p>This AGREEMENT made this <strong>'.date('jS',strtotime($startdate)).'</strong> day of <strong>'.strtoupper(date('F',strtotime($startdate))).'</strong>, <strong>TWO THOUSAND AND TWENTY</strong> between <strong>AGRO-INVESTMENT CORPORATION</strong>, a corporate body duly incorporated under the laws of Jamaica with registered office located at 188 Spanish Town Road, Kingston 11 in the parish of ST ANDREW (hereinafter called the ‘Lessor’) of the ONE PART, and <strong>'.$firstname. ' ' .$lastname.'</strong>, of ' .$street. ',' .$city. ',' .$parish. ' (hereinafter called the ‘`Lessee’) of the OTHER PART. <br/>
+$html = '<p>This AGREEMENT made this <strong>'.strtoupper($day).'</strong> day of <strong>'.strtoupper(date('F',strtotime($startdate))).'</strong>, <strong>TWO THOUSAND AND TWENTY</strong> between <strong>AGRO-INVESTMENT CORPORATION</strong>, a corporate body duly incorporated under the laws of Jamaica with registered office located at 188 Spanish Town Road, Kingston 11 in the parish of ST ANDREW (hereinafter called the ‘Lessor’) of the ONE PART, and <strong>'.$firstname. ' ' .$lastname.'</strong>, of ' .$street. ',' .$city. ',' .$parish. ' (hereinafter called the ‘`Lessee’) of the OTHER PART. <br/>
 <br/>
 <strong>WHEREBY IT IS AGREED </strong> as follows: <br/>
-1.  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Lessor hereby gives to the Lessee and the Lessee hereby takes part of ALL THAT parcel of land of an informal sub-division situated at '.strtoupper($property).' in the parish of CLARENDON (part of <strong>Volume</strong> 394, <strong>Folio</strong> 63) containing by estimation <strong>16.99 hectares ('.$acreage.' acres)</strong>of the shape and dimensions and butting as shown in the IRRIGATION MAP(s) annexed thereon (hereinafter called the “said plot”) for the term of '.strtoupper($f->format($y)).'('.$y.') years from the FIRST day of '.strtoupper(date('F',strtotime($startdate))).' TWO THOUSAND AND TWENTY (hereinafter referred to as the Term) renewable as hereinafter provided that the annual user fee of '.strtoupper($f->format($rate)).' DOLLARS ($'.$rate.') per acre (hereinafter called the “User Fee”) payable on or before the First day of '.strtoupper(date('F',strtotime($startdate))).' each year, hereinafter the first of such payment or renewal shall be made in accordance with Section 3 (iii) of the FIRST SCHEDULE. 
+1.  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Lessor hereby gives to the Lessee and the Lessee hereby takes part of ALL THAT parcel of land of an informal sub-division situated at '.strtoupper($property).' in the parish of '.$Parish.' (part of <strong>Volume</strong> 394, <strong>Folio</strong> 63) containing by estimation <strong>16.99 hectares ('.$acreage.' acres)</strong>of the shape and dimensions and butting as shown in the IRRIGATION MAP(s) annexed thereon (hereinafter called the “said plot”) for the term of '.strtoupper($f->format($y)).'('.$y.') years from the '.strtoupper($day).' day of '.strtoupper(date('F',strtotime($startdate))).' TWO THOUSAND AND TWENTY (hereinafter referred to as the Term) renewable as hereinafter provided that the annual user fee of '.strtoupper($f->format($rate)).' DOLLARS ($'.$rate.') per acre (hereinafter called the “User Fee”) payable on or before the '.strtoupper($day).' day of '.strtoupper(date('F',strtotime($startdate))).' each year, hereinafter the first of such payment or renewal shall be made in accordance with Section 3 (iii) of the FIRST SCHEDULE. 
 <br/>
 </p>';
 
@@ -170,9 +251,9 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->SetFont('Helvetica','UB',15);
 $pdf->cell(190,5,'SECOND SCHEDULE',0,1,'C');
 $pdf->SetFont('Times','',12);
-$html= '<table><tr><td style="width:20%"><strong>ITEM 1:</strong></td><td style="width:20%"><strong>PROPERTY:</strong></td><td style="width:60%">All that plot of land part of RHYMESBURY in the
-        parish of CLARENDON, containing approximately
-        16.99 hectares (42 acres) appearing on the plan
+$html= '<table><tr><td style="width:20%"><strong>ITEM 1:</strong></td><td style="width:20%"><strong>PROPERTY:</strong></td><td style="width:60%">All that plot of land part of '.strtoupper($property).' in the
+        parish of '.strtoupper($Parish).', containing approximately
+        '.$hectare.' hectares ('.$acreage.' acres) appearing on the plan
         attached hereto and being part of land comprised in
         Certificate of Title registered at Volume 394 Folio 63
         of the Registered Book of Titles.</td></tr></table>';

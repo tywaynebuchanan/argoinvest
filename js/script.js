@@ -1,9 +1,14 @@
 //Global variables
 
+
+
+
 var phone = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
 var tax = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{3}$/;
 var emailregex = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
 var money = /^[0-9]{5}[-\s\.][0-9]{2}/;
+
+
 
 $(function(){
 
@@ -31,7 +36,8 @@ $(function()
 	$("#error_tcc").hide();
 	$("#error_arc").hide();
 	$("#error_rate").hide();
-
+	
+	
 //Set error messages to false
 	var error_file = false;
 	var error_fname = false;
@@ -46,6 +52,13 @@ $(function()
 	var error_tcc = false;
 	var error_arc = false;
 	var error_rate = false;
+	
+
+		$("#addNotesbtn").click(function(){
+			$("#insertNotestbl").show();
+	});
+
+	
 
 	$("#filenumber").focusout(function(){
 		checkfilenum();
@@ -102,7 +115,12 @@ $(function()
 
 function checkfilenum(){
 
-	var file = $("#filenumber").val().length;
+	var file = $("#filenumber").val().length 
+
+	// file < 2 ? $("#err_file").html("This can not be blank");, $("#filenumber").addClass("is-danger");,
+	// 			$("#err_file").show();, error_file = true; : $("#err_file").hide(); ,
+	// 			$("#filenumber").removeClass("is-danger");,
+	// $("#filenumber").addClass("is-success");
 
 	if(file < 2)
 	{
@@ -121,14 +139,22 @@ function checkfilenum(){
 
 function checkfname(){
 
-	var field = $("#fname").val()
+	var field = $("#fname").val();
 	if(field =="")
 	{
 		$("#err_fname").html("This can not be blank");
 		$("#fname").addClass("is-danger");
 		$("#err_fname").show();
 		error_fname = true;
+
+	}else if(!isNaN(field))
+	{
+		$("#err_fname").html("This field only takes Letters");
+		$("#fname").addClass("is-danger");
+		$("#err_fname").show();
+		error_fname = true;
 	}else
+
 	{
 		$("#err_fname").hide();
 		$("#fname").removeClass("is-danger");
@@ -142,6 +168,12 @@ function checklname(){
 	if(field =="")
 	{
 		$("#err_lname").html("This can not be blank");
+		$("#lname").addClass("is-danger");
+		$("#err_lname").show();
+		error_lname = true;
+	}else if(!isNaN(field))
+	{
+		$("#err_lname").html("This field only takes Letters");
 		$("#lname").addClass("is-danger");
 		$("#err_lname").show();
 		error_lname = true;
@@ -381,7 +413,11 @@ function Validate(){
 if(error_file == false && error_fname == false && error_lname == false && error_street == false &&
 	error_city == false && error_ophone== false && error_mphone== false && error_hphone== false &&
 	error_email == false && error_trn == false && error_tcc == false && error_arc == false &&
-	error_rate == false){
+	error_rate == false)
+
+{
+	
+	
 	return true;
 }else {
 	return false;
@@ -390,12 +426,29 @@ if(error_file == false && error_fname == false && error_lname == false && error_
 
 }
 
+$(document).ready(function() {
 
-function ShowTable() {
-  var element = document.getElementById("table_info");
-  element.classList.toggle("show-info");
-}
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
 
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $("#burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+
+
+// function Hide(){
+
+// 		$("#insertNotestbl").hide();
+// 		$("#addNotesbtn").html("Add Note");
+
+// }
+
+// var element = document.getElementById("#insertNotestbl");
+// 	element.style.display = 'none';
+	
 //Functions for Login Page
 function showError(){
 

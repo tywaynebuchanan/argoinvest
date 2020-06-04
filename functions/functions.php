@@ -138,9 +138,7 @@ echo "
   <i class='fas fa-paper-plane'></i>
 </span><span>Email Lease</span></a>
 
-<a class = 'button is-link is-rounded' href ='add_notes.php?id={$filenumber}'><span class='icon'>
-  <i class='fas fa-paper-plane'></i>
-</span><span>Update Notices</span></a>
+
 
 
   
@@ -151,21 +149,18 @@ echo "
 echo '<div class = "container">
 <fieldset class = "box">
 <legend class="label has-text-justified">Production Notices</legend>
-<div class="table-container ">
-  <table class="table is-bordered is-fullwidth space">
+
+
+
+<div class="table-container space">
+  <table class="table is-bordered space is-fullwidth is-narrow">
+  <th></th>
       <th>Notes</th>
       <th>Date Created</th>
       <th>User</th>
+      <th>Action</th>
      <tbody class="has-text-centered">
-</div>
-</fieldset>
-</div>';
-
-
-
-
-
-
+';
 
 }
 
@@ -190,34 +185,24 @@ else{
 }
 
 function Prod_Update(){
-global $conn;
-$filenumber = $_GET['id'];
+  global $conn;
+  $filenumber = $_GET['id'];
+  $sql1 = mysqli_query($conn,"SELECT * FROM tblNotes WHERE FileNumber = '$filenumber'");
+      if($sql1->num_rows > 0)
+       while ($row1 = mysqli_fetch_assoc($sql1)){
+  echo '
+    <tr>                              
+        <td><i class="far fa-sticky-note"></i></td>
+       <td><input class = "input" type="text" readonly value ="'.$row1["Notes"].'"></td>
+        <td><input class = "input" type="text" readonly value ="'.date('F j,Y',strtotime($row1["DateCreated"])).'"></td>
+        <td><input class ="input" type ="text" readonly value ="'.$row1["username"].'"></td>
+        <td class = "has-items-centered"><a class="button is-warning is-rounded" href="#">Delete</a></td>
+    </tr>';
+  }else{
+    echo'<div class = "container">No Notices</div>';
+  }
 
-//Query to get client data
-$sql = mysqli_query($conn,"SELECT * FROM tblPersonalInformation WHERE FileNumber = '$filenumber'");
-if($sql->num_rows >0){
-while ($r = mysqli_fetch_assoc($sql)) 
-{
-    $name = $r["FirstName"];
-    
-}
-
-}
-
-
-$sql1 = mysqli_query($conn,"SELECT * FROM tblNotes WHERE FileNumber = '$filenumber'");
-if($sql1->num_rows > 0)
-while ($row1 = mysqli_fetch_assoc($sql1)){
-
-
-echo'
-<tr><td>'.$row1["Notes"] .'</td><td>'.date('F j,Y',strtotime($row1["DateCreated"])). '</td><td>'.$row1["username"]. '</td></tr>';
-} 
-else{
-  echo'<div class = "container">No Notices</div>';
-
-}
-}
+}#end of function
 
 function Property(){
 global $conn;
