@@ -289,7 +289,7 @@ if(!isset($_SESSION['login_user'])){
       <span class="icon">
     <i class="fas fa-tint"></i>
       </span>Irrigated</label>
-      <input name="irr"   id="irrigated" class="input" type="text" placeholder="" disabled>
+      <input name="irr" id="irrigated" class="input" type="text" placeholder="" disabled>
   </div>
 
   <div class="column is-2" id="noirr">
@@ -373,18 +373,13 @@ if(!isset($_SESSION['login_user'])){
 <fieldset class = "box">
 <article class="message is-link">
   <div class="message-header">
-    <p class="help has-text-danger"  id="error_form"></p>
-      <p>Please select an option</p>
-
-  </div>
+    <p>Please select an option</p>
+    </div>
       <div class="message-body">
-      
         <div class="field is-grouped">
           <p class="control">
             <input class="button is-link is-outlined" type="submit" name="submit" value="Submit Application">
-            
           </p>
-
           <p class="control">
             <a class="button is-danger" href="home_page.php">
               Cancel application

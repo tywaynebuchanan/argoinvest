@@ -5,8 +5,8 @@ $timezone = date_default_timezone_set("America/Jamaica");
 $conn_error = "Could not connect";
 $db_host = 'localhost';
 $db_user ='root';
-$db_password ='jamaica1';
-$mysql_db ='argoinvest';
+$db_password ='';
+$mysql_db ='agroinvest';
 
 $conn = mysqli_connect($db_host,$db_user,$db_password) or die ('The username or password is incorrect');
 mysqli_select_db($conn,$mysql_db) or die('Not such database present');
