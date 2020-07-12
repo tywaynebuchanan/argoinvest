@@ -393,7 +393,7 @@ if(!isset($_SESSION['login_user'])){
       <span class="icon">
     <i class="fas fa-tint"></i>
       </span>Irrigated</label>
-      <input name="irr"   id="irrigated" class="input" type="text" placeholder="" disabled>
+      <input name="irr" id="irrigated" class="input" type="text" placeholder="" disabled>
   </div>
 
   <div class="column is-2" id="noirr">

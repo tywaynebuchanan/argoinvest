@@ -89,9 +89,15 @@ CREATE TABLE `tblPersonalInformation` (
   `PropertyID` varchar(5) NOT NULL,
   `Rate` decimal(10,2) NOT NULL,
   `Acreage` decimal(10,2) NOT NULL,
+<<<<<<< HEAD
   `LeasePeriod` decimal(10,0) GENERATED ALWAYS AS ((to_days(`EndDate`) - to_days(`StartDate`))) STORED NOT NULL,
   `Hectare` decimal(10,2) GENERATED ALWAYS AS ((`Acreage` * 0.405)) STORED NOT NULL,
   `Revenue` decimal(40,2) GENERATED ALWAYS AS ((`Acreage` * `Rate`)) STORED NOT NULL,
+=======
+  `LeasePeriod` decimal(10,0) NOT NULL,
+  `Hectare` decimal(10,2) NOT NULL,
+  `Revenue` decimal(40,2) NOT NULL,
+>>>>>>> origin/development
   `User` varchar(40) NOT NULL,
   `Property` varchar(200) NOT NULL,
   `ApplicationDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
