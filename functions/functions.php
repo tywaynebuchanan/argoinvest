@@ -355,18 +355,17 @@ $TotalUnIrrigated = array($totalnoirr,$t_ahnoirr);
 
 
 function UserInfo(){
+include  'config/dbconn.php';
 
-  include  'config/dbconn.php';
-  $username = $_SESSION['login_user'];
+$username = $_SESSION['login_user'];
 
-  $query = $conn->query("SELECT * FROM users WHERE username = '$username';");
+$query = $conn->query("SELECT * FROM tblUsers WHERE email = '$username';");
   if ($query->num_rows > 0){
-  while ($row = $query->fetch_assoc())
-    echo $row['user_name']." ".'<p>('.$row["user_role"].')</p>';
-    
-}
+    while ($row = $query->fetch_assoc())
+      echo $row['first_name']." ".$row['last_name']." ".'<p>('.$row["role"].')</p>';
+  }
 
-}
+}//End of function
 
 
 

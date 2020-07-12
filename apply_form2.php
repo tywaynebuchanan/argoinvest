@@ -53,7 +53,7 @@ if(!isset($_SESSION['login_user'])){
 <!--Steps-->
 <div class="container">
 <ul class="steps is-narrow is-large is-centered has-content-centered">
-      <li class="steps-segment is-active">
+      <li class="steps-segment">
         <a href="#" class="has-text-dark">
           <span class="steps-marker">
             <span class="icon">
@@ -66,7 +66,7 @@ if(!isset($_SESSION['login_user'])){
         </a>
       </li>
       <li class="steps-segment is-active">
-        <a href="apply_form2.php" class="has-text-dark">
+        <a href="#" class="has-text-dark">
           <span class="steps-marker">
             <span class="icon">
               <i class="fa fa-layer-group"></i>
@@ -77,14 +77,14 @@ if(!isset($_SESSION['login_user'])){
           </div>
         </a>
       </li>
-      <li class="steps-segment is-active has-gaps">
+      <li class="steps-segment has-gaps">
         <span class="steps-marker">
           <span class="icon">
             <i class="fa fa-home"></i>
           </span>
         </span>
         <div class="steps-content">
-          <p class="heading">Lease Information</p>
+          <a href="apply_form3.php"><p class="heading">Lease Information</p></a>
         </div>
       </li>
       <li class="steps-segment">
@@ -110,59 +110,6 @@ if(!isset($_SESSION['login_user'])){
     <div class="message-body">
       Please enter all information that is applicable
     </div>
-</div>
-</article>
-</div>
-
-<div class="container space">
-  <article class="message is-link">
- <div class="message-header">
-  <p>PROPERTY LEASE APPLICATION FORM</p>
-</div>
-<table>
-  <tr>
-    <td>
-
-    <div class = "space">
-        <label class="radio">
-          <input type="radio" name = "property" id = "pg">
-          Plantian Gardens
-        </label>
-    </div>
-  </div>
-    </td>
-
-    <td>
-        <div class="space">
-            <label class="radio">
-              <input type="radio" name="property">
-              Spring Vale
-            </label>
-        </div>
-    </td>
-
-     <td>
-        <div class="space">
-            <label class="radio">
-              <input type="radio" name="property">
-              Spring Vale
-            </label>
-        </div>
-    </td>
-
-     <td>
-        <div class="space">
-            <label class="radio">
-              <input type="radio" name="property">
-              Spring Vale
-            </label>
-        </div>
-    </td>
-
-</tr>
-
-</table>
-
 </div>
 </article>
 </div>
@@ -256,7 +203,7 @@ if(!isset($_SESSION['login_user'])){
 </div>
 <div class="message-body">
   <div class="columns is-mobile is-multiline">
-    
+
     <div class="column is-3 small-padding">
       <label class = "label"><span class="icon">
       <i class="fas fa-phone"></i>
@@ -327,9 +274,9 @@ if(!isset($_SESSION['login_user'])){
         </span>Company TRN</label>
         <input name="tcc" class="input" maxlength="11" type="tel" id="tcc">
         <p class="help has-text-danger" id="error_tcc"></p>
-        
+
     </div>
-    
+
  <!--  <div class="column is-3 small-paddingd">
       <label class = "label"><span class="icon">
         <i class="fas fa-user"></i>
@@ -366,7 +313,7 @@ if(!isset($_SESSION['login_user'])){
       </span>Lease End Date</label>
       <input name="enddate" class="input" type="date" placeholder="">
   </div>
-  
+
   <div class="column is-3">
       <label class = "label">
       <i class="far fa-image"></i>

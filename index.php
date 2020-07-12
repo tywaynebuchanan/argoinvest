@@ -1,5 +1,5 @@
-<?php ob_start();?>
-<?php include ('functions/login.php');
+<?php ob_start();
+include ('functions/login.php');
 if(isset($_SESSION['login_user'])){
   header("location:home_page.php");
 }
@@ -75,13 +75,7 @@ if(isset($_SESSION['login_user'])){
               </p>
             </form>
           </div>
-          <!-- <div class="space has-text">
-            <p class="has-text-light">
-                        <a href="register.php">Sign Up</a> &nbsp;·&nbsp;
-                        <a href="forgetpassword.php">Forgot Password</a> &nbsp;·&nbsp;
-                        <a href="#">Need Help?</a>
-                    </p>
-        </div> -->
+
         </div>
         </div> 
     </div>

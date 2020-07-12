@@ -3,15 +3,14 @@
 if(!isset($_SESSION['login_user'])){
   header("location:index.php");}
 
-$time = date("Y-m-d H:i:s");
-$user = $_SESSION['login_user'];
+// $user = $_SESSION['login_user'];
 //Get information from Application
 //Query to insert data
 if(isset($_POST['submit']))
 {
 	
 	$insert_query = "INSERT INTO `tblPersonalInformation`(`FileNumber`, `FirstName`, `LastName`, `Street`, `City`, `Parish`, `OfficePhone`, `CellPhone`, `HomePhone`, `Email`, `TRN`, `TCC`, `StartDate`, `EndDate`, `Irrigation`, `NoIrrigation`, `PropertyID`, `Rate`, `Acreage`,`User`,`Property`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";	
-if($stmt = mysqli_prepare($conn, $insert_query))
+if($stmt = mysqli_prepare($conn,$insert_query))
 {
     mysqli_stmt_bind_param($stmt, "sssssssssssssssssssss", $filenumber, $fname, $lname,$street,$city,$parish,$officephone,$cellphone,$homephone,$email,$trn,$tcc,$startdate,$enddate,$irr,$noirr,$propertyid,$rate,$acreage,$user,$property);
 
@@ -32,35 +31,32 @@ if($stmt = mysqli_prepare($conn, $insert_query))
     $irr = mysqli_real_escape_string($conn,$_REQUEST['irr']);
     $noirr = mysqli_real_escape_string($conn,$_REQUEST['noirr']);
     $propertyid = mysqli_real_escape_string($conn,$_REQUEST['propertyid']);
-    $rate= mysqli_real_escape_string($conn,$_REQUEST['rate']);
-    $acreage = mysqli_real_escape_string($conn,$_REQUEST['acreage']);
 
-    if($propertyid == "PGR")
+     if($propertyid == "PGR")
     {
-        $property = 'Plantian Gardenn';
+        $property = "Plantian Gardenn";
     }else if($propertyid == "EBP")
     {
-            $property = 'Ebony Park';
+            $property = "Ebony Park";
     }else if($propertyid == "SV")
     {
-            $property = 'Spring Vale';
+            $property = "Spring Vale";
     }else if($propertyid == "SP")
     {
-            $property = 'Spring Plain';
+            $property = "Spring Plain";
     }else if($propertyid == "NR")
     {
-            $property = 'New River';
+            $property = "New River";
     }else if($propertyid == "AH")
     {
-            $property = 'Aminty Hall';
+            $property = "Aminty Hall";
     }else if($propertyid == "RHY")
     {
-            $property = 'Rhymesbury';
+            $property = "Rhymesbury";
     }
 
-  
-
-
+    $rate = mysqli_real_escape_string($conn,$_REQUEST['rate']);
+    $acreage = mysqli_real_escape_string($conn,$_REQUEST['acreage']);
     $user = $_SESSION['login_user'];
   
 		if(mysqli_stmt_execute($stmt))
